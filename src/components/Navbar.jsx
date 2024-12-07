@@ -152,6 +152,9 @@ const Navbar = () => {
               <Link to="/contact" className="text-white hover:text-gray-200">
                 Contact
               </Link>
+              <Link to="/shop" className="text-white hover:text-gray-200">
+                Shopping
+              </Link>
               <button onClick={handleLogout} className="text-white hover:text-gray-200">
                 Logout
               </button>
