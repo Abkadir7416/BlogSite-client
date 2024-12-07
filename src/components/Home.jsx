@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import edit from "../icons/edit.png";
 import del from "../icons/del.png";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
@@ -29,7 +30,7 @@ const Home = () => {
         setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog._id !== blogId));
       } catch (error) {
         console.error("Error deleting the blog:", error);
-        alert("Failed to delete blog. Please try again.");
+        toast.error("Failed to delete blog. Please try again.");
       }
     },
     []
@@ -70,7 +71,7 @@ const Home = () => {
         setBlogs(response.data);
       } catch (error) {
         console.error("Error fetching blogs:", error);
-        alert("Failed to fetch blogs.");
+        toast.error("Failed to fetch blogs.");
       } finally {
         setLoading(false);
       }
@@ -86,7 +87,7 @@ const Home = () => {
       setWriters(response.data.data);
     } catch (error) {
       console.error("Error fetching writers:", error);
-      alert("Failed to fetch writers.");
+      toast.error("Failed to fetch writers.");
     }
   };
 

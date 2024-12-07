@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const BlogDetail = () => {
   const blogId = useParams().id; // Get blog _id from URL
@@ -52,7 +53,7 @@ const BlogDetail = () => {
 
   const handleLike = async () => {
     if (liked) {
-      alert("You have already liked this blog!");
+      toast.warning("You have already liked this blog!");
       return;
     }
 
@@ -72,13 +73,13 @@ const BlogDetail = () => {
       setLiked(true);
     } catch (error) {
       console.error("Error liking blog:", error);
-      alert(error.response?.data?.msg || "An error occurred while liking.");
+      toast.error(error.response?.data?.msg || "An error occurred while liking.");
     }
   };
 
   const handleCommentSubmit = async () => {
     if (!newComment.trim()) {
-      alert("Comment cannot be empty!");
+      toast.warning("Comment cannot be empty!");
       return;
     }
     try {
