@@ -119,6 +119,7 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { FaShoppingCart } from 'react-icons/fa';
 
 
 const Navbar = () => {
@@ -154,6 +155,9 @@ const Navbar = () => {
               </Link>
               <Link to="/shop" className="text-white hover:text-gray-200">
                 Shopping
+              </Link>
+              <Link to="/cart" className="text-white hover:text-gray-200">
+              <FaShoppingCart size={24} />
               </Link>
               <button onClick={handleLogout} className="text-white hover:text-gray-200">
                 Logout
