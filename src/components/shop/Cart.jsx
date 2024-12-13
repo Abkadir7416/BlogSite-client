@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+// import { useNavigate } from "react-router-dom";
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [itemToRemove, setItemToRemove] = useState(null);
     const [loading, setLoading] = useState(true);
-
+// const navigate = useNavigate();
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
@@ -106,9 +107,18 @@ function Cart() {
 
   return (
     <div className="flex flex-col md:flex-row p-6 gap-20">
+      
       {/* Left Section: Cart Items */}
       <div className="flex-1 bg-white p-4 shadow rounded-lg">
-        <h2 className="text-2xl font-semibold mb-6 underline">Cart Items</h2>
+      <button
+        className="text-black underline mb-4"
+        // onClick={()=> navigate('/shop')}
+        onClick={() => window.history.back()}
+      >
+        Go to Back
+      </button>
+
+        <h2 className="text-4xl font-semibold text-center mb-6 underline">Cart Items</h2>
         {loading ? (
         <div className="flex justify-center items-center h-[calc(100vh-200px)]">
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-black"></div>
