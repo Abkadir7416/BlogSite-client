@@ -115,32 +115,130 @@
 
 // ===============================================
 
-import React, { useContext } from "react";
+// import React, { useContext } from "react";
+// import { Link, useNavigate } from "react-router-dom";
+// import { AuthContext } from "../context/AuthContext";
+// import { toast } from "react-toastify";
+// import { FaShoppingCart } from 'react-icons/fa';
+
+
+// const Navbar = () => {
+//   const { isLoggedIn, logout } = useContext(AuthContext);
+//   const navigate = useNavigate();
+
+//   const handleLogout = () => {
+//     logout();
+//     navigate("/"); // Redirect to landing page on logout
+//     toast.success('Logged out!!')
+//   };
+
+//   return (
+//         <nav className="bg-slate-900 p-4 shadow-lg">
+//       <div className="container mx-auto flex justify-between items-center">
+//         <Link to="/" className="text-white text-2xl font-bold">
+//           BlogSite
+//         </Link>
+//         <div>
+//           {isLoggedIn ? (
+//             <div className="flex space-x-4">
+//               <Link to="/home" className="text-white hover:text-gray-200">
+//                 Home
+//               </Link>
+//               <Link to="/blogs" className="text-white hover:text-gray-200">
+//                 Blogs
+//               </Link>
+//               <Link to="/about" className="text-white hover:text-gray-200">
+//                 About
+//               </Link>
+//               <Link to="/contact" className="text-white hover:text-gray-200">
+//                 Contact
+//               </Link>
+//               <Link to="/shop" className="text-white hover:text-gray-200">
+//                 Shopping
+//               </Link>
+//               <Link to="/cart" className="text-white hover:text-gray-200">
+//               <FaShoppingCart size={24} />
+//               </Link>
+//               <button onClick={handleLogout} className="text-white hover:text-gray-200">
+//                 Logout
+//               </button>
+//             </div>
+//           ) : (
+//             <div className="flex space-x-4">
+//               <Link to="/login" className="text-white hover:text-gray-200">
+//                 Login
+//               </Link>
+//               <Link to="/register" className="text-white hover:text-gray-200">
+//                 Register
+//               </Link>
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//     </nav>
+//   );
+// };
+
+// export default Navbar;
+
+// =======================================================
+
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
-import { FaShoppingCart } from 'react-icons/fa';
-
+import { FaShoppingCart } from "react-icons/fa";
+import axios from "axios";
 
 const Navbar = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [cartCount, setCartCount] = useState(0); // State to manage cart count
+
+  // Function to fetch the cart count from the database
+  const fetchCartCount = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get("http://localhost:5000/api/cart",
+        {
+          headers: { Authorization: `${token}` },
+        }
+      ); // Replace with your API endpoint
+      console.log('response:: :', response.data.data);
+      setCartCount(response.data.data.length || 0);
+    } catch (error) {
+      console.error("Error fetching cart count:", error);
+      toast.error("Failed to fetch cart count.");
+    }
+  };
+
+  // Fetch cart count on component mount and when cart updates
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchCartCount();
+    }
+  }, [isLoggedIn]);
+
+  // Simulate a cart update (you can also set up a WebSocket or other real-time solution)
+  const handleCartUpdate = () => {
+    fetchCartCount(); // Call this function whenever cart items are updated
+  };
 
   const handleLogout = () => {
     logout();
     navigate("/"); // Redirect to landing page on logout
-    toast.success('Logged out!!')
+    toast.success("Logged out!!");
   };
 
   return (
-        <nav className="bg-slate-900 p-4 shadow-lg">
+    <nav className="bg-slate-900 p-4 shadow-lg">
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="text-white text-2xl font-bold">
           BlogSite
         </Link>
         <div>
           {isLoggedIn ? (
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 items-center">
               <Link to="/home" className="text-white hover:text-gray-200">
                 Home
               </Link>
@@ -156,10 +254,20 @@ const Navbar = () => {
               <Link to="/shop" className="text-white hover:text-gray-200">
                 Shopping
               </Link>
-              <Link to="/cart" className="text-white hover:text-gray-200">
-              <FaShoppingCart size={24} />
-              </Link>
-              <button onClick={handleLogout} className="text-white hover:text-gray-200">
+              <div className="relative">
+                <Link to="/cart" className="text-white hover:text-gray-200">
+                  <FaShoppingCart size={24} />
+                </Link>
+                {cartCount > 0 && (
+                  <div className="absolute -top-3 -right-2 bg-red-500 text-white text-sm w-5 h-5 flex items-center justify-center rounded-full">
+                    {cartCount}
+                  </div>
+                )}
+              </div>
+              <button
+                onClick={handleLogout}
+                className="text-white hover:text-gray-200"
+              >
                 Logout
               </button>
             </div>

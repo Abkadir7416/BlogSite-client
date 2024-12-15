@@ -144,10 +144,10 @@ const Home = () => {
 
       {/* Blogs Section */}
       {loading ? (
-        <div className="flex justify-center items-center h-[calc(100vh-200px)]">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-black"></div>
-          <p className="ml-4 text-gray-500">Loading blogs...</p>
-        </div>
+        <div className="flex flex-col justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-black border-solid"></div>
+        <p className="mt-4 text-xl text-gray-500">Loading Lastes Blogs...</p>
+      </div>
       ) : (
         <div className="grid grid-cols-12 gap-4">
           {/* Blog Posts */}

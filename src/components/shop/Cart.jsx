@@ -7,8 +7,8 @@ function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [itemToRemove, setItemToRemove] = useState(null);
-    const [loading, setLoading] = useState(true);
-// const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  // const navigate = useNavigate();
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
@@ -53,7 +53,7 @@ function Cart() {
         )
       );
 
-      toast.success(`Quantity ${action}ed successfully!`);
+      // toast.success(`Quantity ${action}ed successfully!`);
     } catch (error) {
       console.error("Error updating quantity:", error);
       toast.warn(error.response.data.message);
@@ -107,77 +107,80 @@ function Cart() {
 
   return (
     <div className="flex flex-col md:flex-row p-6 gap-20">
-      
       {/* Left Section: Cart Items */}
       <div className="flex-1 bg-white p-4 shadow rounded-lg">
-      <button
-        className="text-black underline mb-4"
-        // onClick={()=> navigate('/shop')}
-        onClick={() => window.history.back()}
-      >
-        Go to Back
-      </button>
+        <button
+          className="text-black underline mb-4"
+          // onClick={()=> navigate('/shop')}
+          onClick={() => window.history.back()}
+        >
+          Go to Back
+        </button>
 
-        <h2 className="text-4xl font-semibold text-center mb-6 underline">Cart Items</h2>
+        <h2 className="text-4xl font-semibold text-center mb-6 underline">
+          Cart Items
+        </h2>
         {loading ? (
-        <div className="flex justify-center items-center h-[calc(100vh-200px)]">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-black"></div>
-          <p className="ml-4 text-gray-500">Loading Cart Items...</p>
-        </div>
-      ) : (
-        <>
-          {cartItems.length > 0 ? (
-            cartItems.map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between border-b px-10 py-6"
-              >
-                <div className="flex flex-col items-center gap-4">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-56 h-28 object-cover rounded-lg"
-                  />
-                  <div className="flex items-center gap-2">
+          <div className="flex flex-col justify-center items-center h-60">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-black border-solid"></div>
+            <p className="mt-4 text-xl text-gray-500">Loading Carts...</p>
+          </div>
+        ) : (
+          <>
+            {cartItems.length > 0 ? (
+              cartItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between border-b px-10 py-6"
+                >
+                  <div className="flex flex-col items-center gap-4">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-56 h-28 object-cover rounded-lg"
+                    />
+                    <div className="flex items-center gap-2">
+                      <button
+                        className="px-3 pb-1 text-2xl font-bold rounded-full border-2"
+                        onClick={() => handleQuantityChange(item.id, -1)}
+                      >
+                        -
+                      </button>
+                      <span className="px-4 py-1 text-lg border-2">
+                        {item.quantity}
+                      </span>
+                      <button
+                        className="px-3 pb-1 text-2xl font-bold rounded-full border-2"
+                        onClick={() => handleQuantityChange(item.id, 1)}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <div className=" text-right">
+                    <h3 className="text-2xl font-medium">{item.name}</h3>
+                    <p className="text-xl text-gray-600">
+                      Price: ₹{item.price}
+                    </p>
+                    <p className="text-xl text-gray-600">
+                      Total: ₹{item.price * item.quantity}
+                    </p>
                     <button
-                      className="px-3 pb-1 text-2xl font-bold rounded-full border-2"
-                      onClick={() => handleQuantityChange(item.id, -1)}
+                      className="text-red-500 text-xl font-semibold mt-2 hover:underline"
+                      onClick={() => handleRemoveClick(item)}
                     >
-                      -
-                    </button>
-                    <span className="px-4 py-1 text-lg border-2">
-                      {item.quantity}
-                    </span>
-                    <button
-                      className="px-3 pb-1 text-2xl font-bold rounded-full border-2"
-                      onClick={() => handleQuantityChange(item.id, 1)}
-                    >
-                      +
+                      Remove
                     </button>
                   </div>
                 </div>
-                <div className=" text-right">
-                  <h3 className="text-2xl font-medium">{item.name}</h3>
-                  <p className="text-xl text-gray-600">Price: ₹{item.price}</p>
-                  <p className="text-xl text-gray-600">
-                    Total: ₹{item.price * item.quantity}
-                  </p>
-                  <button
-                    className="text-red-500 text-xl font-semibold mt-2 hover:underline"
-                    onClick={() => handleRemoveClick(item)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p className="text-center text-lg font-semibold text-gray-500">
-              Your cart is empty!
-            </p>
-          )}
-        </>
-      )}
+              ))
+            ) : (
+              <p className="text-center text-lg font-semibold text-gray-500">
+                Your cart is empty!
+              </p>
+            )}
+          </>
+        )}
       </div>
 
       {/* Right Section: Price Details */}

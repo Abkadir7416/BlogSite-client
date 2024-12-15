@@ -70,7 +70,7 @@ const BlogList = () => {
       { loading ? (
       <div className="flex flex-col justify-center items-center h-screen">
         <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-black border-solid"></div>
-        <p className="mt-4 text-xl text-gray-500">Loading blogs list...</p>
+        <p className="mt-4 text-xl text-gray-500">Loading All blogs...</p>
       </div>
     ):
     (

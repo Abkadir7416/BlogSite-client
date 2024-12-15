@@ -16,8 +16,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BlogForm from "./components/BlogForm";
 import WriterDetailPage from "./components/WriterDetails";
-import ProductList from "./components/ProductList";
-import ProductDetails from "./components/Product-detail";
+import ProductList from "./components/shop/ProductList";
+import ProductDetails from "./components/shop/Product-detail";
 import Cart from "./components/shop/Cart";
 
 export default function App() {
