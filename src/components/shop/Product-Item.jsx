@@ -12,7 +12,7 @@ const Product = ({ heading, endpoint }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/shop/${endpoint}`);
+        const response = await axios.get(`https://blog-writer-test.vercel.app/api/shop/${endpoint}`);
         setProducts(response.data.data);
       } catch (error) {
         console.error("Error fetching products:", error);

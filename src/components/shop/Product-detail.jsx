@@ -17,7 +17,7 @@ const ProductDetails = () => {
   const fetchBook = async () => {
     try {
       const product = await axios.get(
-        `http://localhost:5000/api/shop/${value}/${id}`
+        `https://blog-writer-test.vercel.app/api/shop/${value}/${id}`
       );
       setProduct(product.data.data);
     } catch (error) {
@@ -27,7 +27,7 @@ const ProductDetails = () => {
   };
   useEffect(() => {
     const fetchCart = async () => {
-      const cart = await axios.get(`http://localhost:5000/api/cart`, {
+      const cart = await axios.get(`https://blog-writer-test.vercel.app/api/cart`, {
         headers: { Authorization: `${token}` },
       });
       setCart(cart.data.data);
@@ -48,7 +48,7 @@ const ProductDetails = () => {
         productId: product._id,
         quantity: 1,
       };
-      await axios.post(`http://localhost:5000/api/cart`, cartObj, {
+      await axios.post(`https://blog-writer-test.vercel.app/api/cart`, cartObj, {
         headers: { Authorization: `${token}` },
       });
       toast.success("Item added to cart");

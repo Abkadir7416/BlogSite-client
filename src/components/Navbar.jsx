@@ -199,7 +199,7 @@ const Navbar = () => {
   const fetchCartCount = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/api/cart",
+      const response = await axios.get("https://blog-writer-test.vercel.app/api/cart",
         {
           headers: { Authorization: `${token}` },
         }

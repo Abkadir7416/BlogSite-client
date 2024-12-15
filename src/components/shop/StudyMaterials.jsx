@@ -12,7 +12,7 @@ const StudyMaterials = () => {
     const fetchMaterials = async () => {
       try {
         
-        const materials = await axios.get(`http://localhost:5000/api/shop/study-tools`);
+        const materials = await axios.get(`https://blog-writer-test.vercel.app/api/shop/study-tools`);
         setMaterials(materials.data.data);
       } catch (error) {
         console.error("Error fetching study tools:", error);

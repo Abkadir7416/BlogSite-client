@@ -11,7 +11,7 @@ const Books = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const books = await axios.get(`http://localhost:5000/api/shop/books`);
+        const books = await axios.get(`https://blog-writer-test.vercel.app/api/shop/books`);
         setBooks(books.data.data);
       } catch (error) {
         console.error("Error fetching Books:", error);

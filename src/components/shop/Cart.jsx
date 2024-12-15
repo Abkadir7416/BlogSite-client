@@ -13,7 +13,7 @@ function Cart() {
     const fetchCartItems = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:5000/api/cart", {
+        const response = await axios.get("https://blog-writer-test.vercel.app/api/cart", {
           headers: { Authorization: `${token}` },
         });
         setCartItems(response.data.data);
@@ -33,7 +33,7 @@ function Cart() {
       const token = localStorage.getItem("token");
       const action = change > 0 ? "increment" : "decrement";
       const response = await axios.put(
-        "http://localhost:5000/api/cart",
+        "https://blog-writer-test.vercel.app/api/cart",
         { productId: id, action },
         { headers: { Authorization: `${token}` } }
       );
@@ -68,7 +68,7 @@ function Cart() {
   const handleRemoveConfirm = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/cart/${itemToRemove.id}`, {
+      await axios.delete(`https://blog-writer-test.vercel.app/api/cart/${itemToRemove.id}`, {
         headers: { Authorization: `${token}` },
       });
       setCartItems((prevItems) =>
